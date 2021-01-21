@@ -1,0 +1,173 @@
+swagger: "2.0"
+info:
+  description: "OAS for Scalable web app that Provide 2 http endpoints that accepts JSON base64 encoded binary data on both endpoints and provide diff-ed result on third http endpoint"
+  version: "1.0.0"
+  title: "Scalable WebApp"
+  contact:
+    email: "sarvesh27sharma@gmail.com"
+host: "localhost"
+basePath: "/v1"
+tags:
+- name: "diff"
+  description: "diff data from two http end points"
+schemes:
+- "http"
+paths:
+  /diff/{ID}/left:
+    post:
+      tags:
+      - "diff"
+      summary: "upload left data for diff for particular ID"
+      description: "End point to upload left data required in order to calculate the diff between two data "
+      operationId: "left"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - $ref: "#/parameters/ID"
+      - $ref: "#/parameters/body"
+      responses:
+        "201":
+          description: "data to be diff-ed submitted successfully"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "server side error"
+          schema:
+            $ref: "#/definitions/Errors"
+  /diff/{ID}/right:
+    post:
+      tags:
+      - "diff"
+      summary: "upload right data for diff for particular ID"
+      description: "End point to upload right data required in order to calculate the diff between two data "
+      operationId: "right"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - $ref: "#/parameters/ID"
+      - $ref: "#/parameters/body"
+      responses:
+        "201":
+          description: "data to be diff-ed submitted successfully"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "server side error"
+          schema:
+            $ref: "#/definitions/Errors"
+  /diff/{ID}:
+    get:
+      tags:
+      - "diff"
+      summary: "Get diff by ID"
+      description: "Returns diff for 2 data for an ID"
+      operationId: "getDiffById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ID"
+        in: "path"
+        description: "ID of diff for right"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "server side error"
+          schema:
+            $ref: "#/definitions/Errors"
+definitions:
+  InputData:
+    type: "object"
+    required:
+    - "data"
+    properties:
+      data:
+        type: "string"
+        description: "base64 encoded binary data"
+        example: "1234"
+  ApiResponse:
+    type: "object"
+    description: "response for api request"
+    required: 
+    - "status"
+    properties:
+      status:
+        type: "string"
+        description: "status for the diff-ed operation"
+        enum:
+          - EQUAL
+          - DIFFERENT_SIZE
+          - DIFFERENT
+        example: "EQUAL"
+      differences:
+        type: "array"
+        description: "list of differences found in diff-ed operation"
+        items: 
+          $ref: '#/definitions/Difference'
+  Difference:
+    type: "object"
+    description: "difference between two data"
+    properties:
+      length:
+        type: "integer"
+        format: "int64"
+        description: "length for difference found"
+        example: 1
+      initialOffset:
+        type: "integer"
+        format: "int64"
+        description: "initial offset for difference found"
+        example: 0
+      finalOffset:
+        type: "integer"
+        format: "int64"
+        description: "final offset for difference found"
+        example: 1
+  Errors:
+    type: "object"
+    description: "an array of errors"
+    properties:
+      errors:
+        type: "array"
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: "#/definitions/Error"
+  Error:
+    type: "object"
+    required:
+      - code
+      - message
+    properties:
+      code:
+        description: "A unique meaningful code for the error"
+        type: "string"
+        example: "ERR_01"
+      message: 
+        description: "description for error code"
+        type: "string"
+        example: "INTERNAL_SERVER_ERROR"
+parameters:
+  ID:
+    name: "ID"
+    in: "path"
+    description: "ID of diff for left"
+    required: true
+    type: "integer"
+    format: "int64"
+  body:
+    in: "body"
+    name: "InputData"
+    description: "The input data to be diff-ed"
+    schema: 
+      $ref: '#/definitions/InputData'
+  

@@ -16,6 +16,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<jackson-databind.version>0.2.1</jackson-databind.version>
+		<openapi-generator.version>4.3.1</openapi-generator.version>
+		<yaml.file>${project.basedir}/src/main/resources/ScalableWebApp_v1.yaml</yaml.file>
 	</properties>
 
 	<dependencies>
@@ -38,6 +41,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		<groupId>org.openapitools</groupId>
+		    <artifactId>jackson-databind-nullable</artifactId>
+		    <version>${jackson-databind.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.openapitools</groupId>
+		    <artifactId>openapi-generator</artifactId>
+		    <version>${openapi-generator.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -53,6 +66,35 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				 <groupId>org.openapitools</groupId>
+			    <artifactId>openapi-generator-maven-plugin</artifactId>
+			    <version>${openapi-generator.version}</version>
+			    <executions>
+			    	<execution>
+			    		<id>generate-api-model</id>
+			    		<goals>
+			    			<goal>generate</goal>
+			    		</goals>
+			    		<configuration>
+			    			<inputSpec>${yaml.file}</inputSpec>
+			    			<generatorName>spring</generatorName>
+			    			<generateModels>true</generateModels>
+			    			<generateApis>false</generateApis>
+			    			<modelPackage>${project.groupId}.v1.model</modelPackage>
+			    			<invokerPackage>${project.groupId}.v1.invoker</invokerPackage>
+			    			<modelNameSuffix>DTO</modelNameSuffix>
+			    			<supportingFilesToGenerate>ApiUtils.java</supportingFilesToGenerate>
+			    			<configOptions>
+			    				<delegatePattern>true</delegatePattern>
+			    				<sortModelPropertiesByRequiredFlag>false</sortModelPropertiesByRequiredFlag>
+			    				<sortParamsByRequiredFlag>false</sortParamsByRequiredFlag>
+			    				<unhandledException>true</unhandledException>
+			    			</configOptions>
+			    		</configuration>
+			    	</execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>
