@@ -18,6 +18,7 @@
 		<java.version>1.8</java.version>
 		<jackson-databind.version>0.2.1</jackson-databind.version>
 		<openapi-generator.version>4.3.1</openapi-generator.version>
+		<mapstruct.version>1.4.1.Final</mapstruct.version>
 		<yaml.file>${project.basedir}/src/main/resources/ScalableWebApp_v1.yaml</yaml.file>
 	</properties>
 
@@ -30,16 +31,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 		<groupId>org.openapitools</groupId>
@@ -51,6 +53,22 @@
 		    <artifactId>openapi-generator</artifactId>
 		    <version>${openapi-generator.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
