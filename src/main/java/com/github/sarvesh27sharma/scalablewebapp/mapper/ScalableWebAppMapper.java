@@ -3,7 +3,6 @@
  */
 package com.github.sarvesh27sharma.scalablewebapp.mapper;
 
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -16,7 +15,7 @@ import com.github.sarvesh27sharma.scalablewebapp.entity.DifferedEntity;
  * @author Sarvesh Sharma
  *
  */
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ScalableWebAppMapper {
 	/**
 	 * method to map a DifferedDTO object to DifferedEntity class

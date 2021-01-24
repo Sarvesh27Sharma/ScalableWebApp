@@ -15,7 +15,7 @@ import com.github.sarvesh27sharma.v1.model.ApiResponseDTO;
  */
 public interface ScalableWebAppService {
 	/**
-	 * Saves the data on the left side.
+	 * Saves the data against the unique ID.
 	 * 
 	 * @param differedDTO {@link DifferedDTO} input for diff-ed request
 	 * @return returns true if the data is saved successfully and false if the data
@@ -23,21 +23,14 @@ public interface ScalableWebAppService {
 	 * @throws ScalableWebApiException {@link ScalableWebApiException} in case of
 	 *                                 any exceptions
 	 */
-	boolean saveLeftSideData(DifferedDTO differedDTO) throws ScalableWebApiException;
-
-	/**
-	 * Save the data on the right side.
-	 * 
-	 * @param differedDTO {@link DifferedDTO} input for diff-ed request
-	 * @return returns true if the data is saved successfully and false if the data
-	 *         is already present for left side
-	 * @throws ScalableWebApiException {@link ScalableWebApiException} in case of
-	 *                                 any exceptions
-	 */
-	boolean saveRightSideData(DifferedDTO differedDTO) throws ScalableWebApiException;
+	boolean saveData(DifferedDTO differedDTO) throws ScalableWebApiException;
 
 	/**
 	 * Retrieve DifferedDTO {@link DifferedDTO} for requested ID.
+	 * 
+	 * Method perform following operations: 1. Retrive the details from database 2.
+	 * Validate the request and throw error response in case of invalid request 3.
+	 * Calcuate diff for successful validated request
 	 * 
 	 * @param id for diff-ed request
 	 * @return DifferedDTO {@link DifferedDTO} for given ID.

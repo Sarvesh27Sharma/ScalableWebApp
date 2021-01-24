@@ -47,14 +47,13 @@ public class ScalableWebAppController {
 	 *                                 {@link ScalableWebApiException} in case of
 	 *                                 any exceptions
 	 */
-	@PostMapping("/{id}/left")
-	public ResponseEntity<ApiResponseDTO> left(@NotNull @PathVariable(value = "ID", required = true) long id,
+	@PostMapping("/{ID}/left")
+	public ResponseEntity<Void> left(@NotNull @PathVariable(value = "ID", required = true) long id,
 			@RequestBody InputDataDTO data) throws ScalableWebApiException {
-		scalableWebAppService.saveLeftSideData(new DifferedDTO(data.getData(), null, id));
-		ApiResponseDTO dto = null;
 		log.info("id in left:{}", id);
 		log.info("data in left:{}", data);
-		return new ResponseEntity<>(dto, HttpStatus.OK);
+		scalableWebAppService.saveData(new DifferedDTO(data.getData(), null, id));
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**
@@ -67,14 +66,13 @@ public class ScalableWebAppController {
 	 *                                 {@link ScalableWebApiException} in case of
 	 *                                 any exceptions
 	 */
-	@PostMapping("/{id}/right")
-	public ResponseEntity<ApiResponseDTO> right(@NotNull @PathVariable(value = "ID", required = true) long id,
+	@PostMapping("/{ID}/right")
+	public ResponseEntity<Void> right(@NotNull @PathVariable(value = "ID", required = true) long id,
 			@RequestBody InputDataDTO data) throws ScalableWebApiException {
-		scalableWebAppService.saveLeftSideData(new DifferedDTO(null, data.getData(), id));
-		ApiResponseDTO dto = null;
 		log.info("id in right:{}", id);
 		log.info("data in right:{}", data);
-		return new ResponseEntity<>(dto, HttpStatus.OK);
+		scalableWebAppService.saveData(new DifferedDTO(null, data.getData(), id));
+		return new ResponseEntity<>( HttpStatus.OK);
 	}
 
 	/**
@@ -86,11 +84,11 @@ public class ScalableWebAppController {
 	 *                                 {@link ScalableWebApiException} in case of
 	 *                                 any exceptions
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/{ID}")
 	public ResponseEntity<ApiResponseDTO> getDiffById(@NotNull @PathVariable(value = "ID", required = true) long id)
 			throws ScalableWebApiException {
-		ApiResponseDTO dto = scalableWebAppService.getById(id);
 		log.info("id :{}", id);
+		ApiResponseDTO dto = scalableWebAppService.getById(id);
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 }
