@@ -5,14 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Main class to start the springboot application
- * @author Sarvesh Sharma
  *
+ * @author Sarvesh Sharma
  */
 @SpringBootApplication
 public class ScalableWebAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ScalableWebAppApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ScalableWebAppApplication.class, args);
+    }
 
 }

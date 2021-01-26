@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.github.sarvesh27sharma.scalablewebapp.dto;
 
 import lombok.AllArgsConstructor;
@@ -10,9 +7,8 @@ import lombok.ToString;
 
 /**
  * DTO class for Differed object
- * 
- * @author Sarvesh Sharma
  *
+ * @author Sarvesh Sharma
  */
 @Setter
 @Getter
@@ -20,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class DifferedDTO {
 
-	private String left;
-	private String right;
-	private long id;
+    private String left;
+    private String right;
+    private long id;
 }

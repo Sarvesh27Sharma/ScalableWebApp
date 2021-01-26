@@ -8,30 +8,26 @@ info:
 host: "localhost"
 basePath: "/v1"
 tags:
-- name: "diff"
-  description: "diff data from two http end points"
+  - name: "diff"
+    description: "diff data from two http end points"
 schemes:
-- "http"
+  - "http"
 paths:
   /diff/{ID}/left:
     post:
       tags:
-      - "diff"
+        - "diff"
       summary: "upload left data for diff for particular ID"
       description: "End point to upload left data required in order to calculate the diff between two data "
       operationId: "left"
       consumes:
-      - "application/json"
-      produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - $ref: "#/parameters/ID"
-      - $ref: "#/parameters/body"
+        - $ref: "#/parameters/ID"
+        - $ref: "#/parameters/body"
       responses:
-        "201":
+        "200":
           description: "data to be diff-ed submitted successfully"
-          schema:
-            $ref: "#/definitions/ApiResponse"
         "500":
           description: "server side error"
           schema:
@@ -39,17 +35,15 @@ paths:
   /diff/{ID}/right:
     post:
       tags:
-      - "diff"
+        - "diff"
       summary: "upload right data for diff for particular ID"
       description: "End point to upload right data required in order to calculate the diff between two data "
       operationId: "right"
       consumes:
-      - "application/json"
-      produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - $ref: "#/parameters/ID"
-      - $ref: "#/parameters/body"
+        - $ref: "#/parameters/ID"
+        - $ref: "#/parameters/body"
       responses:
         "201":
           description: "data to be diff-ed submitted successfully"
@@ -57,24 +51,22 @@ paths:
             $ref: "#/definitions/ApiResponse"
         "500":
           description: "server side error"
-          schema:
-            $ref: "#/definitions/Errors"
   /diff/{ID}:
     get:
       tags:
-      - "diff"
+        - "diff"
       summary: "Get diff by ID"
       description: "Returns diff for 2 data for an ID"
       operationId: "getDiffById"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "ID"
-        in: "path"
-        description: "ID of diff for right"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "ID"
+          in: "path"
+          description: "ID of diff for right"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         "200":
           description: "OK"
@@ -84,11 +76,19 @@ paths:
           description: "server side error"
           schema:
             $ref: "#/definitions/Errors"
+        "400":
+          description: "BAD REQUEST"
+          schema:
+            $ref: "#/definitions/Errors"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            $ref: "#/definitions/Errors"
 definitions:
   InputData:
     type: "object"
     required:
-    - "data"
+      - "data"
     properties:
       data:
         type: "string"
@@ -97,8 +97,8 @@ definitions:
   ApiResponse:
     type: "object"
     description: "response for api request"
-    required: 
-    - "status"
+    required:
+      - "status"
     properties:
       status:
         type: "string"
@@ -111,7 +111,7 @@ definitions:
       differences:
         type: "array"
         description: "list of differences found in diff-ed operation"
-        items: 
+        items:
           $ref: '#/definitions/Difference'
   Difference:
     type: "object"
@@ -152,7 +152,7 @@ definitions:
         description: "A unique meaningful code for the error"
         type: "string"
         example: "ERR_01"
-      message: 
+      message:
         description: "description for error code"
         type: "string"
         example: "INTERNAL_SERVER_ERROR"
@@ -168,6 +168,5 @@ parameters:
     in: "body"
     name: "InputData"
     description: "The input data to be diff-ed"
-    schema: 
+    schema:
       $ref: '#/definitions/InputData'
-  

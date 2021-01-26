@@ -1,26 +1,17 @@
-/**
- * 
- */
 package com.github.sarvesh27sharma.scalablewebapp.entity;
 
-import java.io.Serializable;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.io.Serializable;
 
 /**
  * DB entity for Differed object
- * 
- * @author Sarvesh Sharma
  *
+ * @author Sarvesh Sharma
  */
 @Entity
 @Setter
@@ -31,13 +22,13 @@ import lombok.ToString;
 @Table(name = "differed_entity")
 public class DifferedEntity implements Serializable {
 
-	private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1l;
 
-	@Column(name = "left_side_data")
-	private String left;
-	@Column(name = "right_side_data")
-	private String right;
-	@Column(name = "diff_id")
-	@Id
-	private long id;
+    @Column(name = "left_side_data")
+    private String left;
+    @Column(name = "right_side_data")
+    private String right;
+    @Column(name = "diff_id")
+    @Id
+    private long id;
 }
